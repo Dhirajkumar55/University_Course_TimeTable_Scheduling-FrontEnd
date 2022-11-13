@@ -17,8 +17,8 @@ const CollapsableContainer = ({ subData, idx, type }) => {
                 }}
               >
                 {type} {idx + 1}
-                <span class="accicon">
-                  <i class="fas fa-angle-down rotate-icon"></i>
+                <span className="accicon">
+                  <i className="fas fa-angle-down rotate-icon"></i>
                 </span>
               </a>
             </h4>

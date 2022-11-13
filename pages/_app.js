@@ -1,6 +1,12 @@
 import "../styles/navbar.css";
 import "../styles/timetable.css";
 import "../styles/collapsable.css";
+import "../styles/editableTable.css";
+
+import "primereact/resources/themes/lara-light-indigo/theme.css"; //theme
+import "primereact/resources/primereact.min.css"; //core css
+import "primeicons/primeicons.css"; //icons
+
 import Head from "next/head";
 import Script from "next/script";
 
