@@ -9,15 +9,24 @@ const timeIntervals = [
   "14:00 - 15:00",
   "15:00 - 16:00",
 ];
-const colours = [
-  "accent-orange-gradient",
-  "accent-green-gradient",
-  "accent-cyan-gradient",
-  "accent-pink-gradient",
-  "accent-purple-gradient",
-];
 
-export default function Timetable({ data }) {
+const colours = ["accent-pink-gradient"];
+
+export default function NewTeacher({
+  change,
+  setChange,
+  setData,
+  data,
+  refresh,
+  setRefresh,
+}) {
+  const handleClick = (e, x, y) => {
+    let newData = data;
+    newData[x][y] = 1 ^ data[x][y];
+    setData(newData);
+    setRefresh(!refresh);
+    setChange(newData);
+  };
   return (
     <div className="timetable">
       <div className="week-names">
@@ -37,13 +46,12 @@ export default function Timetable({ data }) {
           const list = slot.map((day, idx2) => {
             const boxColor =
               colours[Math.floor(Math.random() * colours.length)];
-            return day ? (
+            return (
               <div
                 key={`${idx1}${idx2}`}
-                className={boxColor}
-              >{`course id : ${day}`}</div>
-            ) : (
-              <div key={`${idx1}${idx2}`} />
+                className={day == 1 ? boxColor : " "}
+                onClick={(event) => handleClick(event, idx1, idx2)}
+              >{`${day == 1 ? "busy" : ""}`}</div>
             );
           });
 
