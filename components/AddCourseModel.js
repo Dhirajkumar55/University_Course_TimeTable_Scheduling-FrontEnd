@@ -103,6 +103,7 @@ export default function AddCourseModel({ addCourse }) {
               >
                 <MenuItem
                   onClick={(e) => {
+                    e.preventDefault();
                     handleDropdownClose(2);
                   }}
                 >
@@ -110,6 +111,7 @@ export default function AddCourseModel({ addCourse }) {
                 </MenuItem>
                 <MenuItem
                   onClick={(e) => {
+                    e.preventDefault();
                     handleDropdownClose(3);
                   }}
                 >
@@ -117,6 +119,7 @@ export default function AddCourseModel({ addCourse }) {
                 </MenuItem>
                 <MenuItem
                   onClick={(e) => {
+                    e.preventDefault();
                     handleDropdownClose(4);
                   }}
                 >

@@ -21,7 +21,7 @@ const style = {
   p: 4,
 };
 
-export default function AddTeacherModel() {
+export default function AddTeacherModel({ addTeacher }) {
   const [refresh, setrefresh] = React.useState([
     [0, 0, 0, 0, 1],
     [0, 0, 0, 0, 0],
@@ -43,9 +43,6 @@ export default function AddTeacherModel() {
     teacherName: name,
   };
   const Button = styled(MuiButton)((props) => ({
-    // backgroundColor: "#1976d2",
-    // color: "white",
-    // borderStyle: "solid",
     marginLeft: "85%",
   }));
   return (
@@ -79,6 +76,8 @@ export default function AddTeacherModel() {
                 variant="contained"
                 onClick={() => {
                   console.log(data);
+                  addTeacher(data);
+                  handleClose();
                 }}
                 style={{
                   marginLeft: "80%",

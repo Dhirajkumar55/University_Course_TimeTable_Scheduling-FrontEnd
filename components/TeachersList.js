@@ -4,7 +4,7 @@ import { styled } from "@mui/material/styles";
 import React from "react";
 import { Button } from "@mui/material";
 
-const CourseList = ({ removeCourse, coursesList }) => {
+const TeachersList = ({ removeTeacher, teachersList }) => {
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -12,28 +12,28 @@ const CourseList = ({ removeCourse, coursesList }) => {
     textAlign: "center",
     color: theme.palette.text.secondary,
   }));
-  const handleRemoveCourse = (name) => {
-    removeCourse(name);
+  const handleRemoveTeacher = (name) => {
+    removeTeacher(name);
   };
 
-  const courses = coursesList;
+  const teachers = teachersList;
   return (
     <div>
-      <h2 style={{ marginLeft: "1%" }}>Courses List</h2>
+      <h2 style={{ marginLeft: "1%" }}>Teachers List</h2>
       <Stack
         direction="row"
         spacing={2}
         style={{ display: "flex", flexWrap: "wrap" }}
       >
-        {coursesList.map((course, idx) => {
+        {teachers.map((teacher, idx) => {
           return (
-            <div style={{ margin: "1%" }} key={idx}>
+            <div style={{ margin: "1%" }} key={teacher.teacherName + idx}>
               <Item>
-                {`${course.courseName} (${course.courseCredits})`}
+                {`${teacher.teacherName} `}
                 <Button
                   onClick={(e) => {
                     console.log("clicked!!");
-                    handleRemoveCourse(course.courseName);
+                    handleRemoveTeacher(teacher.teacherName);
                   }}
                 >
                   X
@@ -47,4 +47,4 @@ const CourseList = ({ removeCourse, coursesList }) => {
   );
 };
 
-export default CourseList;
+export default TeachersList;

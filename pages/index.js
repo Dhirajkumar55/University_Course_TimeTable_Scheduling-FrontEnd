@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Input } from "@mui/material";
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import AddTeacherModel from "../components/AddTeacherModel";
@@ -6,19 +6,15 @@ import AddCourseModel from "../components/AddCourseModel";
 import { useRouter } from "next/router";
 import Loading from "../components/Loading";
 import CoursesList from "../components/CourseList";
+import CSVForm from "../components/CsvInput";
+import TeachersList from "../components/TeachersList";
 const Home = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [courseData, setCourseData] = useState([]);
   const [teacherData, setTeacherData] = useState([]);
-  const handleGenerateTimeTable = async (e) => {
-    e.preventDefault();
-    router.push({
-      pathname: "/result",
-      // query: {  },
-    });
-  };
-  const list = [
+
+  const courseList = [
     {
       courseName: "Zoonoodle",
       courseCredits: 1,
@@ -100,7 +96,120 @@ const Home = () => {
       courseCredits: 20,
     },
   ];
-  const [coursesList, setCoursesList] = useState(list);
+  const teachers = [
+    {
+      teacherName: "Ruperta",
+      teacherBusy: [
+        [0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0],
+      ],
+    },
+    {
+      teacherName: "Darcey",
+      teacherBusy: [
+        [0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0],
+      ],
+    },
+    {
+      teacherName: "Alexandra",
+      teacherBusy: [
+        [0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0],
+      ],
+    },
+    {
+      teacherName: "Trina",
+      teacherBusy: [
+        [0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0],
+      ],
+    },
+    {
+      teacherName: "Ardelia",
+      teacherBusy: [
+        [0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0],
+      ],
+    },
+    {
+      teacherName: "Clementine",
+      teacherBusy: [
+        [0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0],
+      ],
+    },
+    {
+      teacherName: "Merilee",
+      teacherBusy: [
+        [0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0],
+      ],
+    },
+    {
+      teacherName: "Abbie",
+      teacherBusy: [
+        [0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0],
+      ],
+    },
+    {
+      teacherName: "Shane",
+      teacherBusy: [
+        [0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0],
+      ],
+    },
+    {
+      teacherName: "Onida",
+      teacherBusy: [
+        [0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0],
+      ],
+    },
+  ];
+  const [coursesList, setCoursesList] = useState(courseList);
+  const [teacher_list, setTeacher_list] = useState(teachers);
 
   const removeCourse = (courseName) => {
     // console.log(`removing ${courseName}`);
@@ -110,24 +219,64 @@ const Home = () => {
     setCoursesList(arr);
   };
 
+  const removeTeacher = (teacherName) => {
+    // console.log(`removing ${courseName}`);
+    const arr = teacher_list.filter(function (item) {
+      return item.teacherName !== teacherName;
+    });
+    setTeacher_list(arr);
+  };
+
   const addCourse = (course) => {
     setCoursesList([...coursesList, course]);
   };
+
+  const addTeacher = (teacher) => {
+    setTeacher_list([...teacher_list, teacher]);
+  };
   console.log(coursesList);
+  console.log("teacher_list ");
+  console.log(teacher_list);
+
+  const [csvFile, setCsvFile] = useState(null);
+
+  const handleGenerateTimeTable = async (e) => {
+    e.preventDefault();
+    console.log(csvFile);
+    // router.push({
+    //   pathname: "/result",
+    // });
+  };
+  const onChange = (event) => {
+    const file = event.target.files[0];
+    setCsvFile(file);
+  };
+
   return loading ? (
     <Loading />
   ) : (
     <div>
       <Navbar />
       <div style={{ marginTop: "2%" }}>
-        <CoursesList removeCourse={removeCourse} coursesList={coursesList} />
-        <AddTeacherModel />
+        <TeachersList
+          removeTeacher={removeTeacher}
+          teachersList={teacher_list}
+        />
+        <AddTeacherModel addTeacher={addTeacher} />
       </div>
       <div>
         <CoursesList removeCourse={removeCourse} coursesList={coursesList} />
 
         <AddCourseModel addCourse={addCourse} />
       </div>
+
+      <Input
+        type="file"
+        accept={".csv"}
+        onChange={onChange}
+        style={{ width: "50%", marginLeft: "25%" }}
+      />
+      <br></br>
 
       <Button
         variant="contained"
@@ -136,8 +285,9 @@ const Home = () => {
           handleGenerateTimeTable(e);
         }}
         style={{
-          marginLeft: "30%",
-          marginTop: "2%",
+          marginLeft: "40%",
+          marginTop: "5%",
+          marginBottom: "10%",
         }}
       >
         Generate Time Table
