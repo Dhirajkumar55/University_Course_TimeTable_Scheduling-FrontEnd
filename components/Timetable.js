@@ -17,7 +17,10 @@ const colours = [
   "accent-purple-gradient",
 ];
 
-export default function Timetable({ data }) {
+export default function Timetable({ data, type, typeRes }) {
+  // console.log(1);
+  // console.log(data);
+  // console.log(typeRes);
   return (
     <div className="timetable">
       <div className="week-names">
@@ -33,15 +36,12 @@ export default function Timetable({ data }) {
         })}
       </div>
       <div className="content">
-        {data.map((slot, idx1) => {
+        {data[typeRes].map((slot, idx1) => {
           const list = slot.map((day, idx2) => {
             const boxColor =
               colours[Math.floor(Math.random() * colours.length)];
             return day ? (
-              <div
-                key={`${idx1}${idx2}`}
-                className={boxColor}
-              >{`course id : ${day}`}</div>
+              <div key={`${idx1}${idx2}`} className={boxColor}>{`${day}`}</div>
             ) : (
               <div key={`${idx1}${idx2}`} />
             );

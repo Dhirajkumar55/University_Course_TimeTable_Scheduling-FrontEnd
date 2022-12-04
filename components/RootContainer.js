@@ -4,7 +4,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import TimeTableContainer from "./TimeTableContainer";
 
-export default function RootContainer({ data }) {
+export default function RootContainer({ data, typeRes }) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -18,6 +18,7 @@ export default function RootContainer({ data }) {
           key={value}
           type="Teacher"
           data={data["TeacherRoutine"]}
+          typeRes={"teacherRoutine"}
         />
       );
     } else if (value === 1) {
@@ -26,6 +27,7 @@ export default function RootContainer({ data }) {
           key={value}
           type="Section"
           data={data["SectionRoutine"]}
+          typeRes={"sectionRoutine"}
         />
       );
     } else if (value === 2) {
@@ -34,6 +36,7 @@ export default function RootContainer({ data }) {
           key={value}
           type="Room"
           data={data["RoomRoutine"]}
+          typeRes={"roomRoutine"}
         />
       );
     }
