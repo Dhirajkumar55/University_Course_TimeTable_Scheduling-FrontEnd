@@ -1,3 +1,4 @@
+import { blue } from "@mui/material/colors";
 import React, { useState } from "react";
 import Timetable from "./Timetable";
 
@@ -22,17 +23,27 @@ const CollapsableContainer = ({ subData, idx, typeRes }) => {
         <div className="panel panel-default">
           <div className="panel-heading">
             <h4 className="panel-title">
-              <a
-                href="#"
-                onClick={function () {
-                  setOpen(!open);
+              <button
+                style={{
+                  background: "none",
+                  backgroundColor: "none",
+                  border: "none",
                 }}
               >
-                {subData[name]}'s schedule
-                <span className="accicon">
-                  <i className="fas fa-angle-down rotate-icon"></i>
-                </span>
-              </a>
+                <a
+                  // href="#"
+                  onClick={function () {
+                    setOpen(!open);
+                  }}
+                  style={{ color: "#38369A" }}
+                  onMouseOver={(e) => {}}
+                >
+                  {subData[name]}'s schedule
+                  <span className="accicon">
+                    <i className="fas fa-angle-down rotate-icon"></i>
+                  </span>
+                </a>
+              </button>
             </h4>
           </div>
           <div
