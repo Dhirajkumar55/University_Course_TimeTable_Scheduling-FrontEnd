@@ -4,18 +4,24 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "../components/Loading";
 import RootContainer from "../components/RootContainer";
-import { withRouter } from "next/router";
+import { useRouter, withRouter } from "next/router";
 function Result(props) {
-  const [data, setData] = useState(null);
+  //const [data, setData] = useState(null);
   console.log(props);
-  useEffect(() => {
-    async function getData() {
-      const res = await axios.get("http://localhost:8000/solution2");
-      setData(res.data);
-      console.log(res.data);
-    }
-    getData();
-  }, []);
+  const router = useRouter();
+  console.log(JSON.parse(router.query.obj));
+  const data = JSON.parse(router.query.obj);
+  // const obj = JSON.parse(router.query.data);
+  // const data = obj;
+  // console.log(data);
+  // useEffect(() => {
+  //   async function getData() {
+  //     const res = await axios.get("http://localhost:8000/solution2");
+  //     setData(res.data);
+  //     console.log(res.data);
+  //   }
+  //   getData();
+  // }, []);
 
   return (
     <div>

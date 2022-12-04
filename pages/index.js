@@ -19,156 +19,157 @@ import EditableTable from "../components/EditableTable";
 import CourseTable from "../components/CourseTable";
 import SectionsList from "../components/SectionsList";
 import AddNewSection from "../components/AddNewSection";
+import axios from "axios";
 const Home = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [numRooms, setnumRooms] = useState(); // change it to num rooms
-  const courseList = [
-    {
-      courseName: "Zoonoodle",
-      courseCredits: 1,
-    },
-    {
-      courseName: "Edgeblab",
-      courseCredits: 2,
-    },
-    {
-      courseName: "Yabox",
-      courseCredits: 3,
-    },
-    {
-      courseName: "Devbug",
-      courseCredits: 4,
-    },
-    {
-      courseName: "Dazzlesphere",
-      courseCredits: 5,
-    },
-  ];
-  const teachers = [
-    {
-      teacherName: "Ruperta",
-      teacherBusy: [
-        [0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 0, 1, 0],
-        [0, 0, 0, 0, 0],
-      ],
-      idx: 1,
-    },
-    {
-      teacherName: "Darcey",
-      teacherBusy: [
-        [0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 0, 1, 0],
-        [0, 0, 0, 0, 0],
-      ],
-      idx: 2,
-    },
-    {
-      teacherName: "Alexandra",
-      teacherBusy: [
-        [0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 0, 1, 0],
-        [0, 0, 0, 0, 0],
-      ],
-      idx: 3,
-    },
-    {
-      teacherName: "Trina",
-      teacherBusy: [
-        [0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 0, 1, 0],
-        [0, 0, 0, 0, 0],
-      ],
-      idx: 4,
-    },
-    {
-      teacherName: "Ardelia",
-      teacherBusy: [
-        [0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 0, 1, 0],
-        [0, 0, 0, 0, 0],
-      ],
-      idx: 5,
-    },
-    {
-      teacherName: "Clementine",
-      teacherBusy: [
-        [0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 0, 1, 0],
-        [0, 0, 0, 0, 0],
-      ],
-      idx: 6,
-    },
-    {
-      teacherName: "Merilee",
-      teacherBusy: [
-        [0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 0, 1, 0],
-        [0, 0, 0, 0, 0],
-      ],
-      idx: 7,
-    },
-    {
-      teacherName: "Abbie",
-      teacherBusy: [
-        [0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 0, 1, 0],
-        [0, 0, 0, 0, 0],
-      ],
-      idx: 8,
-    },
-    {
-      teacherName: "Shane",
-      teacherBusy: [
-        [0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 0, 1, 0],
-        [0, 0, 0, 0, 0],
-      ],
-      idx: 9,
-    },
-    {
-      teacherName: "Onida",
-      teacherBusy: [
-        [0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 0, 1, 0],
-        [0, 0, 0, 0, 0],
-      ],
-      idx: 10,
-    },
-  ];
-  const [coursesList, setCoursesList] = useState(courseList);
-  const [teacher_list, setTeacher_list] = useState(teachers);
+  // const courseList = [
+  //   {
+  //     courseName: "Zoonoodle",
+  //     courseCredits: 1,
+  //   },
+  //   {
+  //     courseName: "Edgeblab",
+  //     courseCredits: 2,
+  //   },
+  //   {
+  //     courseName: "Yabox",
+  //     courseCredits: 3,
+  //   },
+  //   {
+  //     courseName: "Devbug",
+  //     courseCredits: 4,
+  //   },
+  //   {
+  //     courseName: "Dazzlesphere",
+  //     courseCredits: 5,
+  //   },
+  // ];
+  // const teachers = [
+  //   {
+  //     teacherName: "Ruperta",
+  //     teacherBusy: [
+  //       [0, 0, 0, 0, 1],
+  //       [0, 0, 0, 0, 0],
+  //       [0, 0, 0, 0, 0],
+  //       [0, 0, 1, 0, 0],
+  //       [0, 0, 0, 1, 0],
+  //       [0, 0, 0, 0, 0],
+  //     ],
+  //     idx: 1,
+  //   },
+  //   {
+  //     teacherName: "Darcey",
+  //     teacherBusy: [
+  //       [0, 0, 0, 0, 1],
+  //       [0, 0, 0, 0, 0],
+  //       [0, 0, 0, 0, 0],
+  //       [0, 0, 1, 0, 0],
+  //       [0, 0, 0, 1, 0],
+  //       [0, 0, 0, 0, 0],
+  //     ],
+  //     idx: 2,
+  //   },
+  //   {
+  //     teacherName: "Alexandra",
+  //     teacherBusy: [
+  //       [0, 0, 0, 0, 1],
+  //       [0, 0, 0, 0, 0],
+  //       [0, 0, 0, 0, 0],
+  //       [0, 0, 1, 0, 0],
+  //       [0, 0, 0, 1, 0],
+  //       [0, 0, 0, 0, 0],
+  //     ],
+  //     idx: 3,
+  //   },
+  //   {
+  //     teacherName: "Trina",
+  //     teacherBusy: [
+  //       [0, 0, 0, 0, 1],
+  //       [0, 0, 0, 0, 0],
+  //       [0, 0, 0, 0, 0],
+  //       [0, 0, 1, 0, 0],
+  //       [0, 0, 0, 1, 0],
+  //       [0, 0, 0, 0, 0],
+  //     ],
+  //     idx: 4,
+  //   },
+  //   {
+  //     teacherName: "Ardelia",
+  //     teacherBusy: [
+  //       [0, 0, 0, 0, 1],
+  //       [0, 0, 0, 0, 0],
+  //       [0, 0, 0, 0, 0],
+  //       [0, 0, 1, 0, 0],
+  //       [0, 0, 0, 1, 0],
+  //       [0, 0, 0, 0, 0],
+  //     ],
+  //     idx: 5,
+  //   },
+  //   {
+  //     teacherName: "Clementine",
+  //     teacherBusy: [
+  //       [0, 0, 0, 0, 1],
+  //       [0, 0, 0, 0, 0],
+  //       [0, 0, 0, 0, 0],
+  //       [0, 0, 1, 0, 0],
+  //       [0, 0, 0, 1, 0],
+  //       [0, 0, 0, 0, 0],
+  //     ],
+  //     idx: 6,
+  //   },
+  //   {
+  //     teacherName: "Merilee",
+  //     teacherBusy: [
+  //       [0, 0, 0, 0, 1],
+  //       [0, 0, 0, 0, 0],
+  //       [0, 0, 0, 0, 0],
+  //       [0, 0, 1, 0, 0],
+  //       [0, 0, 0, 1, 0],
+  //       [0, 0, 0, 0, 0],
+  //     ],
+  //     idx: 7,
+  //   },
+  //   {
+  //     teacherName: "Abbie",
+  //     teacherBusy: [
+  //       [0, 0, 0, 0, 1],
+  //       [0, 0, 0, 0, 0],
+  //       [0, 0, 0, 0, 0],
+  //       [0, 0, 1, 0, 0],
+  //       [0, 0, 0, 1, 0],
+  //       [0, 0, 0, 0, 0],
+  //     ],
+  //     idx: 8,
+  //   },
+  //   {
+  //     teacherName: "Shane",
+  //     teacherBusy: [
+  //       [0, 0, 0, 0, 1],
+  //       [0, 0, 0, 0, 0],
+  //       [0, 0, 0, 0, 0],
+  //       [0, 0, 1, 0, 0],
+  //       [0, 0, 0, 1, 0],
+  //       [0, 0, 0, 0, 0],
+  //     ],
+  //     idx: 9,
+  //   },
+  //   {
+  //     teacherName: "Onida",
+  //     teacherBusy: [
+  //       [0, 0, 0, 0, 1],
+  //       [0, 0, 0, 0, 0],
+  //       [0, 0, 0, 0, 0],
+  //       [0, 0, 1, 0, 0],
+  //       [0, 0, 0, 1, 0],
+  //       [0, 0, 0, 0, 0],
+  //     ],
+  //     idx: 10,
+  //   },
+  // ];
+  const [coursesList, setCoursesList] = useState([]);
+  const [teacher_list, setTeacher_list] = useState([]);
 
   console.log("teachers");
   console.log(teacher_list);
@@ -201,29 +202,32 @@ const Home = () => {
   const handleGenerateTimeTable = async (e) => {
     e.preventDefault();
     let cd = [];
-    courseList.map((course, idx) => {
+    console.log(teacher_list)
+    coursesList.map((course, idx) => {
+      console.log(idx);
+      console.log(lect[idx]);
       cd[idx] = {
-        Teacher: teacher_list[idx].teacherName,
+        Teacher: lect[idx],
         Section1: sec1[idx],
         Section2: sec2[idx],
       };
     });
     const data = {
       teacherList: teacher_list,
-      courseList: courseList,
+      courseList: coursesList,
       sectionList: secs,
       courseDetailsList: cd,
       rooms: numRooms,
     };
     console.log(data);
-    const res = await fetch("http://localhost:8000/res", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    console.log(res);
+    const res = await axios.post("http://localhost:8000/solver/sol1/", data);
+    console.log(res.data)
+  
     router.push({
       pathname: "/result",
+      query:{
+        obj: JSON.stringify(res.data)
+      }
     });
   };
 
@@ -236,14 +240,14 @@ const Home = () => {
   };
 
   const [secs, setSecs] = useState([
-    { name: "UG-1 A", idx: 1 },
-    { name: "UG-1 B", idx: 2 },
-    { name: "UG-2 A", idx: 3 },
-    { name: "UG-2 B", idx: 4 },
-    { name: "UG-3 A", idx: 5 },
-    { name: "UG-3 B", idx: 6 },
-    { name: "UG-4 A", idx: 7 },
-    { name: "UG-4 B", idx: 8 },
+    // { name: "UG-1 A", idx: 1 },
+    // { name: "UG-1 B", idx: 2 },
+    // { name: "UG-2 A", idx: 3 },
+    // { name: "UG-2 B", idx: 4 },
+    // { name: "UG-3 A", idx: 5 },
+    // { name: "UG-3 B", idx: 6 },
+    // { name: "UG-4 A", idx: 7 },
+    // { name: "UG-4 B", idx: 8 },
   ]);
 
   const removeSection = (sectionId) => {
