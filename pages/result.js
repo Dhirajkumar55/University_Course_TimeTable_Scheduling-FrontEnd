@@ -10,7 +10,7 @@ function Result(props) {
   console.log(props);
   useEffect(() => {
     async function getData() {
-      const res = await axios.get("http://localhost:8000/solution");
+      const res = await axios.get("http://localhost:8000/solution2");
       setData(res.data);
       console.log(res.data);
     }

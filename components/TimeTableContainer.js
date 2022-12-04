@@ -2,7 +2,11 @@ import { useState } from "react";
 import CollapsableContainer from "./CollapsableContainer";
 import Timetable from "./Timetable";
 
-export default function TimeTableContainer({ data, type }) {
+export default function TimeTableContainer({ data, typ, typeRes }) {
+  console.log(data);
+  // console.log("****************");
+  // console.log("timetable cont");
+  // console.log(typeRes);
   return (
     <div>
       {data.map((subData, idx) => {
@@ -10,8 +14,8 @@ export default function TimeTableContainer({ data, type }) {
           <CollapsableContainer
             subData={subData}
             idx={idx}
-            type={type}
             key={idx}
+            typeRes={typeRes}
           />
         );
       })}

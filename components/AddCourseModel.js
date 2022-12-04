@@ -73,15 +73,6 @@ export default function AddCourseModel({ addCourse }) {
                 // style={{ marginBottom: "3%", margin: "10px" }}
               />
               <br />
-              {/* <TextField
-                label="Course credits"
-                variant="outlined"
-                id="outlined-number"
-                type="number"
-                onChange={(e) => setCredits(e.target.value)}
-                required
-                style={{ marginBottom: "3%", margin: "10px" }}
-              /> */}
               <MuiButton
                 id="basic-button"
                 aria-controls={dropDopen ? "basic-menu" : undefined}

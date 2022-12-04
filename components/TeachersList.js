@@ -18,7 +18,14 @@ const TeachersList = ({ removeTeacher, teachersList }) => {
 
   const teachers = teachersList;
   return (
-    <div>
+    <div
+      style={{
+        margin: "40px",
+        border: "solid #EFEFEF",
+        borderRadius: "10px",
+        padding: "30px",
+      }}
+    >
       <h2 style={{ marginLeft: "1%" }}>Teachers List</h2>
       <Stack
         direction="row"
@@ -33,7 +40,7 @@ const TeachersList = ({ removeTeacher, teachersList }) => {
                 <Button
                   onClick={(e) => {
                     console.log("clicked!!");
-                    handleRemoveTeacher(teacher.teacherName);
+                    handleRemoveTeacher(teacher.idx);
                   }}
                 >
                   X

@@ -1,4 +1,11 @@
-import { Button, Input } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  Input,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import AddTeacherModel from "../components/AddTeacherModel";
@@ -6,14 +13,16 @@ import AddCourseModel from "../components/AddCourseModel";
 import { useRouter } from "next/router";
 import Loading from "../components/Loading";
 import CoursesList from "../components/CourseList";
-import CSVForm from "../components/CsvInput";
+
 import TeachersList from "../components/TeachersList";
+import EditableTable from "../components/EditableTable";
+import CourseTable from "../components/CourseTable";
+import SectionsList from "../components/SectionsList";
+import AddNewSection from "../components/AddNewSection";
 const Home = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [courseData, setCourseData] = useState([]);
-  const [teacherData, setTeacherData] = useState([]);
-
+  const [numRooms, setnumRooms] = useState(); // change it to num rooms
   const courseList = [
     {
       courseName: "Zoonoodle",
@@ -35,66 +44,6 @@ const Home = () => {
       courseName: "Dazzlesphere",
       courseCredits: 5,
     },
-    {
-      courseName: "Mudo",
-      courseCredits: 6,
-    },
-    {
-      courseName: "Riffpath",
-      courseCredits: 7,
-    },
-    {
-      courseName: "Lajo",
-      courseCredits: 8,
-    },
-    {
-      courseName: "Zooxo",
-      courseCredits: 9,
-    },
-    {
-      courseName: "Voonyx",
-      courseCredits: 10,
-    },
-    {
-      courseName: "Dabshots",
-      courseCredits: 11,
-    },
-    {
-      courseName: "Izio",
-      courseCredits: 12,
-    },
-    {
-      courseName: "Edgewire",
-      courseCredits: 13,
-    },
-    {
-      courseName: "Dynabox",
-      courseCredits: 14,
-    },
-    {
-      courseName: "Riffwire",
-      courseCredits: 15,
-    },
-    {
-      courseName: "Voolia",
-      courseCredits: 16,
-    },
-    {
-      courseName: "Jayo",
-      courseCredits: 17,
-    },
-    {
-      courseName: "Twinder",
-      courseCredits: 18,
-    },
-    {
-      courseName: "Skippad",
-      courseCredits: 19,
-    },
-    {
-      courseName: "Feedspan",
-      courseCredits: 20,
-    },
   ];
   const teachers = [
     {
@@ -107,6 +56,7 @@ const Home = () => {
         [0, 0, 0, 1, 0],
         [0, 0, 0, 0, 0],
       ],
+      idx: 1,
     },
     {
       teacherName: "Darcey",
@@ -118,6 +68,7 @@ const Home = () => {
         [0, 0, 0, 1, 0],
         [0, 0, 0, 0, 0],
       ],
+      idx: 2,
     },
     {
       teacherName: "Alexandra",
@@ -129,6 +80,7 @@ const Home = () => {
         [0, 0, 0, 1, 0],
         [0, 0, 0, 0, 0],
       ],
+      idx: 3,
     },
     {
       teacherName: "Trina",
@@ -140,6 +92,7 @@ const Home = () => {
         [0, 0, 0, 1, 0],
         [0, 0, 0, 0, 0],
       ],
+      idx: 4,
     },
     {
       teacherName: "Ardelia",
@@ -151,6 +104,7 @@ const Home = () => {
         [0, 0, 0, 1, 0],
         [0, 0, 0, 0, 0],
       ],
+      idx: 5,
     },
     {
       teacherName: "Clementine",
@@ -162,6 +116,7 @@ const Home = () => {
         [0, 0, 0, 1, 0],
         [0, 0, 0, 0, 0],
       ],
+      idx: 6,
     },
     {
       teacherName: "Merilee",
@@ -173,6 +128,7 @@ const Home = () => {
         [0, 0, 0, 1, 0],
         [0, 0, 0, 0, 0],
       ],
+      idx: 7,
     },
     {
       teacherName: "Abbie",
@@ -184,6 +140,7 @@ const Home = () => {
         [0, 0, 0, 1, 0],
         [0, 0, 0, 0, 0],
       ],
+      idx: 8,
     },
     {
       teacherName: "Shane",
@@ -195,6 +152,7 @@ const Home = () => {
         [0, 0, 0, 1, 0],
         [0, 0, 0, 0, 0],
       ],
+      idx: 9,
     },
     {
       teacherName: "Onida",
@@ -206,11 +164,14 @@ const Home = () => {
         [0, 0, 0, 1, 0],
         [0, 0, 0, 0, 0],
       ],
+      idx: 10,
     },
   ];
   const [coursesList, setCoursesList] = useState(courseList);
   const [teacher_list, setTeacher_list] = useState(teachers);
 
+  console.log("teachers");
+  console.log(teacher_list);
   const removeCourse = (courseName) => {
     // console.log(`removing ${courseName}`);
     const arr = coursesList.filter(function (item) {
@@ -219,45 +180,92 @@ const Home = () => {
     setCoursesList(arr);
   };
 
-  const removeTeacher = (teacherName) => {
-    // console.log(`removing ${courseName}`);
-    const arr = teacher_list.filter(function (item) {
-      return item.teacherName !== teacherName;
-    });
-    setTeacher_list(arr);
-  };
-
   const addCourse = (course) => {
     setCoursesList([...coursesList, course]);
   };
 
-  const addTeacher = (teacher) => {
-    setTeacher_list([...teacher_list, teacher]);
+  const removeTeacher = (teacherId) => {
+    // console.log(`removing ${courseName}`);
+    const arr = teacher_list.filter(function (item) {
+      return item.idx !== teacherId;
+    });
+    setTeacher_list(arr);
   };
-  console.log(coursesList);
-  console.log("teacher_list ");
-  console.log(teacher_list);
-
-  const [csvFile, setCsvFile] = useState(null);
+  const addTeacher = (teacher) => {
+    setTeacher_list([
+      ...teacher_list,
+      { ...teacher, idx: Math.floor(Math.random() * 100000 + 1) },
+    ]);
+  };
 
   const handleGenerateTimeTable = async (e) => {
     e.preventDefault();
-    console.log(csvFile);
-    // router.push({
-    //   pathname: "/result",
-    // });
-  };
-  const onChange = (event) => {
-    const file = event.target.files[0];
-    setCsvFile(file);
+    let cd = [];
+    courseList.map((course, idx) => {
+      cd[idx] = {
+        Teacher: teacher_list[idx].teacherName,
+        Section1: sec1[idx],
+        Section2: sec2[idx],
+      };
+    });
+    const data = {
+      teacherList: teacher_list,
+      courseList: courseList,
+      sectionList: secs,
+      courseDetailsList: cd,
+      rooms: numRooms,
+    };
+    console.log(data);
+    const res = await fetch("http://localhost:8000/res", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    console.log(res);
+    router.push({
+      pathname: "/result",
+    });
   };
 
+  const [lect, setLect] = useState([]);
+  const [sec1, setSec1] = useState([]);
+  const [sec2, setSec2] = useState([]);
+
+  const handleChange = (event) => {
+    setnumRooms(event.target.value);
+  };
+
+  const [secs, setSecs] = useState([
+    { name: "UG-1 A", idx: 1 },
+    { name: "UG-1 B", idx: 2 },
+    { name: "UG-2 A", idx: 3 },
+    { name: "UG-2 B", idx: 4 },
+    { name: "UG-3 A", idx: 5 },
+    { name: "UG-3 B", idx: 6 },
+    { name: "UG-4 A", idx: 7 },
+    { name: "UG-4 B", idx: 8 },
+  ]);
+
+  const removeSection = (sectionId) => {
+    const arr = secs.filter(function (item) {
+      return item.idx !== sectionId;
+    });
+    setSecs(arr);
+  };
+  const addSection = (sec) => {
+    setSecs([
+      ...secs,
+      { name: sec, idx: Math.floor(Math.random() * 100000 + 1) },
+    ]);
+  };
+
+  const roomsArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]; // change it to roomsArr
   return loading ? (
     <Loading />
   ) : (
     <div>
       <Navbar />
-      <div style={{ marginTop: "2%" }}>
+      <div>
         <TeachersList
           removeTeacher={removeTeacher}
           teachersList={teacher_list}
@@ -270,14 +278,35 @@ const Home = () => {
         <AddCourseModel addCourse={addCourse} />
       </div>
 
-      <Input
-        type="file"
-        accept={".csv"}
-        onChange={onChange}
-        style={{ width: "50%", marginLeft: "25%" }}
-      />
       <br></br>
+      <div>
+        <SectionsList removeSection={removeSection} sectionList={secs} />
 
+        <AddNewSection addSection={addSection} />
+      </div>
+
+      <FormControl sx={{ width: "25%", margin: "2%", marginLeft: "25%" }}>
+        <InputLabel id="outlined-basic">Rooms</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={numRooms === undefined ? "" : numRooms}
+          label="teacher"
+          onChange={handleChange}
+        >
+          {roomsArr.map((sec) => {
+            return <MenuItem value={sec}>{sec}</MenuItem>;
+          })}
+        </Select>
+      </FormControl>
+
+      <CourseTable
+        courses={coursesList}
+        teachers={teacher_list}
+        numRooms={numRooms}
+        secArr={secs}
+        data={{ lect, setLect, sec1, setSec1, sec2, setSec2 }}
+      />
       <Button
         variant="contained"
         onClick={(e) => {

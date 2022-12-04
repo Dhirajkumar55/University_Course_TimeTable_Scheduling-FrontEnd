@@ -4,10 +4,9 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import MuiButton from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { TextField } from "@mui/material";
-import EditableTable from "./EditableTable";
+import { Button, Menu, MenuItem, TextField } from "@mui/material";
 import styled from "@emotion/styled";
+// import EditableTable from "./EditableTable";
 
 const style = {
   position: "absolute",
@@ -21,15 +20,7 @@ const style = {
   p: 4,
 };
 
-export default function AddTeacherModel({ addTeacher }) {
-  const [refresh, setrefresh] = React.useState([
-    [0, 0, 0, 0, 1],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 1, 0, 0],
-    [0, 0, 0, 1, 0],
-    [0, 0, 0, 0, 0],
-  ]);
+export default function AddNewSection({ addSection }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -38,16 +29,21 @@ export default function AddTeacherModel({ addTeacher }) {
   };
 
   const [name, setName] = React.useState("");
-  const data = {
-    teacherBusy: refresh,
-    teacherName: name,
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const dropDopen = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleDropdownClose = () => {
+    setAnchorEl(null);
   };
   const Button = styled(MuiButton)((props) => ({
     marginLeft: "85%",
   }));
   return (
     <div>
-      <Button onClick={handleOpen}>Add Teacher</Button>
+      <Button onClick={handleOpen}>Add Section</Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -64,27 +60,27 @@ export default function AddTeacherModel({ addTeacher }) {
             <form onSubmit={(e) => handleSubmit(e)}>
               <TextField
                 id="outlined-basic"
-                label="Name of the Teacher"
+                label="Name of the Section"
                 variant="outlined"
                 onChange={(e) => setName(e.target.value)}
                 required
-                style={{ marginBottom: "3%", margin: "10px" }}
               />
-              <EditableTable change={refresh} setChange={setrefresh} />
+              <br />
 
+              <br />
               <MuiButton
                 variant="contained"
                 onClick={() => {
-                  console.log(data);
-                  addTeacher(data);
+                  addSection(name);
+                  console.log("section added!", name);
                   handleClose();
                 }}
-                style={{
-                  marginLeft: "80%",
-                  marginTop: "2%",
+                sx={{
+                  marginLeft: "35%",
+                  marginTop: "5%",
                 }}
               >
-                Add Teacher
+                Add Section
               </MuiButton>
             </form>
           </Box>

@@ -1,9 +1,21 @@
 import React, { useState } from "react";
 import Timetable from "./Timetable";
 
-const CollapsableContainer = ({ subData, idx, type }) => {
+const CollapsableContainer = ({ subData, idx, typeRes }) => {
   const [open, setOpen] = useState(false);
-
+  console.log(`collapsable cont ${typeRes}`);
+  console.log(subData);
+  let type, name;
+  if (typeRes == "sectionRoutine") {
+    type = "Section";
+    name = "sectionName";
+  } else if (typeRes == "roomRoutine") {
+    type = "Room";
+    name = "roomNumber";
+  } else {
+    type = "Teacher";
+    name = "teacherName";
+  }
   return (
     <div className="col-sm-offset-4">
       <div className="panel-group">
@@ -16,7 +28,7 @@ const CollapsableContainer = ({ subData, idx, type }) => {
                   setOpen(!open);
                 }}
               >
-                {type} {idx + 1}
+                {subData[name]}'s schedule
                 <span className="accicon">
                   <i className="fas fa-angle-down rotate-icon"></i>
                 </span>
@@ -28,8 +40,11 @@ const CollapsableContainer = ({ subData, idx, type }) => {
           >
             <ul className="list-group">
               <div>
-                {/* <h2>{`${type} ${idx + 1}`}</h2> */}
-                <Timetable key={`${type} ${idx + 1}`} data={subData} />
+                <Timetable
+                  key={`${typeRes} ${idx + 1}`}
+                  data={subData}
+                  typeRes={typeRes}
+                />
                 <br />
                 <br />
               </div>
